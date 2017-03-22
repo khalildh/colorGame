@@ -9,6 +9,7 @@ console.log(h1)
 
 var hard = true;
 var easy = false;
+var gameOver = false;
 var winner = "";
 
 buttons[0].addEventListener("click", function() {
@@ -26,18 +27,26 @@ for (var i = squares.length - 1; i >= 0; i--) {
 			console.log(this.getAttribute("style"));
 
 			this.style.backgroundColor = "rgb(35, 35, 35)";
+			
 			if (this.style.backgroundColor === "rgb(35, 35, 35)" && youWon.innerHTML !== "You Won.") {
 				youWon.innerHTML = "Try Again.";
+				if (gameOver === false) {
+					this.classList.add("visibility");
+					console.log(gameOver);
+				}
 			}
 		} else {
 			// h1 to color of this;
 			for (var j = squares.length - 1; j >= 0; j--) {
 				console.log("yeah")
-				squares[j].style.backgroundColor =  "rgb(35, 35, 35)";
+				squares[j].style.backgroundColor =  winner;
+				squares[j].classList.remove("visibility");
 			}
 			this.style.backgroundColor = winner;
 			h1.style.backgroundColor = winner;
 			youWon.innerHTML = "You Won.";
+			gameOver = true;
+			console.log(gameOver);
 		}
 	});
 }
