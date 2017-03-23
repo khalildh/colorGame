@@ -12,7 +12,7 @@ var gameOver = false;
 var winner = "";
 
 buttons[0].addEventListener("click", function() {
-	
+	buttons[0].innerHTML = "NEW COLORS"
 	console.log(hard);
 	if(hard === true){
 		newGameHard();
@@ -71,6 +71,7 @@ for (var i = squares.length - 1; i >= 0; i--) {
 			h1.style.backgroundColor = winner;
 			youWon.innerHTML = "You Won.";
 			gameOver = true;
+			buttons[0].innerHTML = "PLAY AGAIN"
 		}
 	});
 }
