@@ -8,23 +8,40 @@ console.log(h1)
 
 
 var hard = true;
-var easy = false;
 var gameOver = false;
 var winner = "";
 
 buttons[0].addEventListener("click", function() {
-	if(hard){
+	
+	console.log(hard);
+	if(hard === true){
 		newGameHard();
+	} 
+	else {
+		newGameEasy();
 	}
 });
 
+buttons[1].addEventListener("click", function() {
+	hard = false;
+	newGameEasy();
+});
+
+buttons[2].addEventListener("click", function() {
+	hard = true;
+	newGameHard();
+});
+
+
+
+
+
+
+
 for (var i = squares.length - 1; i >= 0; i--) {
-	console.log("white")
 	squares[i].addEventListener("click", function() {
 		test = "background-color: " + winner + ";";
-		console.log(test);
 		if(this.getAttribute("style") !== test) {
-			console.log(this.getAttribute("style"));
 
 			this.style.backgroundColor = "rgb(35, 35, 35)";
 			
@@ -32,21 +49,28 @@ for (var i = squares.length - 1; i >= 0; i--) {
 				youWon.innerHTML = "Try Again.";
 				if (gameOver === false) {
 					this.classList.add("visibility");
-					console.log(gameOver);
 				}
 			}
 		} else {
 			// h1 to color of this;
-			for (var j = squares.length - 1; j >= 0; j--) {
-				console.log("yeah")
-				squares[j].style.backgroundColor =  winner;
-				squares[j].classList.remove("visibility");
+			if (hard === true) {
+				for (var j = squares.length - 1; j >= 0; j--) {
+					squares[j].style.backgroundColor =  winner;
+					squares[j].classList.remove("visibility");
+				}
 			}
+
+			else {
+				for (var j = 0; j <= 2; j++) {
+					squares[j].style.backgroundColor =  winner;
+					squares[j].classList.remove("visibility");
+				}
+			}
+
 			this.style.backgroundColor = winner;
 			h1.style.backgroundColor = winner;
 			youWon.innerHTML = "You Won.";
 			gameOver = true;
-			console.log(gameOver);
 		}
 	});
 }
@@ -71,27 +95,60 @@ function randColor(){
 
 function newColors() {
 	square6 = []
-	for (var i = squares.length - 1; i >= 0; i--) {
-		var addThisColor = randColor()
-		squares[i].style.backgroundColor = addThisColor[0];
-		square6.push(addThisColor[0])
+	if (hard === true) {
+		for (var i = squares.length - 1; i >= 0; i--) {
+			var addThisColor = randColor()
+			squares[i].style.backgroundColor = addThisColor[0];
+			square6.push(addThisColor[0])
+		}
 	}
-	console.log(square6)
+	else {
+		for (var i = squares.length - 4; i >= 0; i--) {
+			var addThisColor = randColor()
+			squares[i].style.backgroundColor = addThisColor[0];
+			square6.push(addThisColor[0])
+		}
+	}	
 	return square6
 }
 
 newGameHard();
 
 function newGameHard() {
+
+	for (var j = squares.length - 1; j >= 3; j--) {
+		squares[j].style.backgroundColor =  winner;
+		squares[j].classList.remove("visibility");
+	}
+
+
 	square6 = newColors();
-	winner = square6[randNum(6)]
-	console.log(winner)
+	winner = square6[randNum(6)];
 	twoEM[0].innerHTML = winner;
 	winnerIdx = square6.indexOf(winner);
-	console.log(winnerIdx);
+	h1.style.backgroundColor = "steelblue";
+	youWon.innerHTML = "";
+}
+
+
+function newGameEasy() {
+
+
+	for (var j = squares.length - 1; j >= 3; j--) {
+		squares[j].style.backgroundColor =  winner;
+		squares[j].classList.add("visibility");
+	}
+
+
+
+
+
+	square6 = newColors();
+	console.log(square6)
+	winner = square6[randNum(3)]
+	twoEM[0].innerHTML = winner;
+	winnerIdx = square6.indexOf(winner);
 	h1.style.backgroundColor = "steelblue";
 	youWon.innerHTML = "";
 
-
 }
-
