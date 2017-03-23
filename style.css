@@ -89,3 +89,39 @@ button:hover {
 .visibility {
 	visibility: hidden;
 }
+
+
+
+/* add media query to scale hr width on a 960px breakpoint 
+   Bootstrap uses 960 for small-mid Labtops */
+
+@media screen and (max-width: 300px) {
+    h1 {
+        font-size: 85%;
+    }
+
+    .menu-bar {
+    	font-size: 40%;
+    }
+}
+
+@media screen and (max-width: 100px) {
+    h1 {
+        font-size: 50%;
+    }
+
+    .menu-bar {
+    	font-size: 35%;
+    }
+}
+
+
+@media screen and (max-width: 60px) {
+    h1 {
+        font-size: 35%;
+    }
+
+    .menu-bar {
+    	font-size: 10%;
+    }
+}
