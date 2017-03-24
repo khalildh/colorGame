@@ -3,10 +3,6 @@ var buttons = document.getElementsByClassName('button');
 var twoEM = document.getElementsByClassName('twoEM');
 var h1 = document.getElementsByTagName('h1')[0];
 var youWon = document.getElementsByClassName('youWon')[0];
-youWon.innerHTML = ""
-console.log(h1)
-
-
 var hard = true;
 var gameOver = false;
 var winner = "";
@@ -15,29 +11,24 @@ buttons[0].addEventListener("click", function() {
 	buttons[0].innerHTML = "NEW COLORS"
 	console.log(hard);
 	if(hard === true){
-		newGameHard();
+		newGame(newGameCallBack);
 	} 
 	else {
-		newGameEasy();
+		newGame(newGameCallBack);
 	}
 });
 
 buttons[1].addEventListener("click", function() {
 	hard = false;
-	newGameEasy();
+	newGame(newGameCallBack);
 });
 
 buttons[2].addEventListener("click", function() {
 	hard = true;
-	newGameHard();
+	newGame(newGameCallBack);
 });
 
-
-
-
-
-
-
+// The Grand for Loop otherwise known as Better than Justin...
 for (var i = squares.length - 1; i >= 0; i--) {
 	squares[i].addEventListener("click", function() {
 		test = "background-color: " + winner + ";";
@@ -52,7 +43,7 @@ for (var i = squares.length - 1; i >= 0; i--) {
 				}
 			}
 		} else {
-			// h1 to color of this;
+
 			if (hard === true) {
 				for (var j = squares.length - 1; j >= 0; j--) {
 					squares[j].style.backgroundColor =  winner;
@@ -69,15 +60,14 @@ for (var i = squares.length - 1; i >= 0; i--) {
 
 			this.style.backgroundColor = winner;
 			h1.style.backgroundColor = winner;
-			youWon.innerHTML = "You Won.";
+			youWon.innerHTML = "Correct!";
 			gameOver = true;
-			buttons[0].innerHTML = "PLAY AGAIN"
+			buttons[0].innerHTML = "PLAY AGAIN?"
 		}
 	});
 }
 
-
-
+newGame(newGameCallBack);
 
 function randNum(num) {
 	var randNumVar = Math.floor(Math.random() * num);
@@ -113,43 +103,33 @@ function newColors() {
 	return square6
 }
 
-newGameHard();
-
-function newGameHard() {
-
-	for (var j = squares.length - 1; j >= 3; j--) {
-		squares[j].style.backgroundColor =  winner;
-		squares[j].classList.remove("visibility");
+function newGame(callback) {
+	if (hard === false)  {
+		callback(3);
 	}
-
-
-	square6 = newColors();
-	winner = square6[randNum(6)];
-	twoEM[0].innerHTML = winner;
-	winnerIdx = square6.indexOf(winner);
-	h1.style.backgroundColor = "steelblue";
-	youWon.innerHTML = "";
+	else {
+		callback(6);
+	}
 }
 
-
-function newGameEasy() {
-
-
-	for (var j = squares.length - 1; j >= 3; j--) {
-		squares[j].style.backgroundColor =  winner;
-		squares[j].classList.add("visibility");
+function newGameCallBack(par) {
+	if (hard === false) {
+		for (var j = squares.length - 1; j >= 3; j--) {
+			squares[j].style.backgroundColor =  winner;
+			squares[j].classList.add("visibility");
+		}
 	}
-
-
-
-
-
+	else {
+			for (var j = squares.length - 1; j >= 3; j--) {
+			squares[j].style.backgroundColor =  winner;
+			squares[j].classList.remove("visibility");
+		}
+	}
 	square6 = newColors();
 	console.log(square6)
-	winner = square6[randNum(3)]
+	winner = square6[randNum(par)]
 	twoEM[0].innerHTML = winner;
 	winnerIdx = square6.indexOf(winner);
 	h1.style.backgroundColor = "steelblue";
 	youWon.innerHTML = "";
-
 }
