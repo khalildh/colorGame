@@ -74,7 +74,6 @@ function randNum(num) {
 	return randNumVar
 }
 
-
 function randColor(){
 	var r = randNum(256);
 	var g = randNum(256);
@@ -82,7 +81,6 @@ function randColor(){
 	var color = "rgb(" + r + ", " + g + ", " + b + ")";
 	return [color, r, g, b];
 }
-
 
 function newColors() {
 	square6 = []
